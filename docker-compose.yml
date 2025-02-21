@@ -1,0 +1,19 @@
+services:
+  osrm:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/data
+    environment:
+      - OSRM_MAX_MEMORY=8192
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
+    shm_size: '2gb'
+    tmpfs:
+      - /tmp:size=2G
